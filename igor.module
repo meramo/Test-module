@@ -93,6 +93,14 @@ function igor_views_data() {
     'help' => t('Contains records we want to expose to Views.'),
   );
 
+  // Getting ready for joins
+  $data['igor_textfield_table']['table']['join'] = array(
+    'node' => array(
+      'left_field' => 'nid',
+      'field' => 'nid',
+    ),
+  );
+
   // The Textfield field, it only matters to us
   $data['igor_textfield_table']['textfield'] = array(
     'title' => t('Custom textfield'),
@@ -127,6 +135,14 @@ function igor_views_data() {
       'validate type' => 'nid',
     ),
 
+    // Relationships
+    'relationship' => array(
+      'base' => 'node',
+      'field' => 'nid',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Node'),
+    ),
+
     // Information for accepting a nid as a filter
     'filter' => array(
       'handler' => 'views_handler_filter_numeric',
@@ -137,6 +153,8 @@ function igor_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
+
+
 
   return $data;
 
