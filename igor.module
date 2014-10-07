@@ -35,5 +35,31 @@ function igor_node_insert($node) {
   drupal_set_message(t('Value added successfully'));
 }
 
+/**
+ * Implements hook_node_update().
+ *
+ */
+function igor_node_update($node) {
+
+  // If there is already a record, update it.
+  if (db_query('SELECT nid FROM {igor_textfield} WHERE nid = :nid', array(':nid' => $node->nid))->fetchField()) {
+    $num_updated = db_update('igor_textfield')
+      ->fields(array(
+        'nid' => $node->nid,
+        'textfield' => $node->sample_textfield,
+      ))
+      ->condition('nid', $node->nid)
+      ->execute();
+
+    // Set a message so we know the update ran.
+    drupal_set_message(t('Node updated successfully'));
+  }
+
+  // Otherwise, insert a new one.
+  else {
+    igor_node_insert($node);
+  }
+}
+
 
 
