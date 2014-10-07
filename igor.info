@@ -1,0 +1,4 @@
+name = Sample using the Form API
+description = Just an example.
+core = 7.x
+files[] = igor.module
