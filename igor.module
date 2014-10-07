@@ -14,7 +14,7 @@ function igor_form_node_form_alter(&$form, &$form_state, $form_id) {
     );
   }
 
-  krumo($form);
+//  krumo($form);
 }
 
 /**
@@ -25,7 +25,9 @@ function igor_node_insert($node) {
     db_insert('igor_textfield')
       ->fields(array(
         'nid' => $node->nid,
-        'textfield' => $node->igor_textfield))
+        'textfield' => $node->sample_textfield
+        )
+      )
       ->execute();
   }
 
