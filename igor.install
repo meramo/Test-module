@@ -4,7 +4,7 @@
  * Implements hook_schema().
  */
 function igor_schema() {
-  $schema['igor_textfield'] = array(
+  $schema['igor_textfield_table'] = array(
     'description' => 'Stores the textfield.',
     'fields' => array(
       'nid' => array(

@@ -4,28 +4,29 @@
 function igor_form_node_form_alter(&$form, &$form_state, $form_id) {
   if (!empty($form['#node_edit_form'])) {
     // Add a textfield to all node form.
-    $form['sample_textfield'] = array(
+    $form['textfield_form'] = array(
       '#type' => 'textfield',
-      '#title' => t("Sample textfield"),
+      '#title' => t("Form title"),
       '#required' => FALSE,
+      '#default_value' => isset($form['#node_edit_form']->textfield_form) ? $form['#node_edit_form']->textfield_form : '',
       '#weight' => -3,
       '#size' => '32',
       '#maxlength' => '64',
     );
   }
 
-//  krumo($form);
+  krumo($form);
 }
 
 /**
  * Implements hook_node_insert().
  */
 function igor_node_insert($node) {
-  if (isset($node->sample_textfield)) {
-    db_insert('igor_textfield')
+  if (isset($node->textfield_form)) {
+    db_insert('igor_textfield_table')
       ->fields(array(
         'nid' => $node->nid,
-        'textfield' => $node->sample_textfield
+        'textfield' => $node->textfield_form
         )
       )
       ->execute();
@@ -42,11 +43,11 @@ function igor_node_insert($node) {
 function igor_node_update($node) {
 
   // If there is already a record, update it.
-  if (db_query('SELECT nid FROM {igor_textfield} WHERE nid = :nid', array(':nid' => $node->nid))->fetchField()) {
-    $num_updated = db_update('igor_textfield')
+  if (db_query('SELECT nid FROM {igor_textfield_table} WHERE nid = :nid', array(':nid' => $node->nid))->fetchField()) {
+    $num_updated = db_update('igor_textfield_table')
       ->fields(array(
         'nid' => $node->nid,
-        'textfield' => $node->sample_textfield,
+        'textfield' => $node->textfield_form,
       ))
       ->condition('nid', $node->nid)
       ->execute();
@@ -65,8 +66,9 @@ function igor_node_update($node) {
  * Implements hook_node_delete().
  */
 function igor_node_delete($node) {
-  db_delete('igor_textfield')->condition('nid', $node->nid)->execute();
+  db_delete('igor_textfield_table')->condition('nid', $node->nid)->execute();
 }
+
 
 
 
