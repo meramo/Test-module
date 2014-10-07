@@ -69,6 +69,34 @@ function igor_node_delete($node) {
   db_delete('igor_textfield_table')->condition('nid', $node->nid)->execute();
 }
 
+/**
+ * Implements hook_views_api().
+ */
+function igor_views_api()  {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'igor') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function igor_views_data() {
+
+  $data = array();
+
+  $data['igor_textfield_table']['table']['group'] = t('Custom group');
+
+  $data['igor_textfield_table']['table']['base'] = array(
+    'title' => t('Custom base table'),
+    'help' => t('Contains records we want to expose to Views.'),
+  );
+
+  return $data;
+
+}
+
 
 
 
