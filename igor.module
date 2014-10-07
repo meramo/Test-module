@@ -61,5 +61,12 @@ function igor_node_update($node) {
   }
 }
 
+/**
+ * Implements hook_node_delete().
+ */
+function igor_node_delete($node) {
+  db_delete('igor_textfield')->condition('nid', $node->nid)->execute();
+}
+
 
 
