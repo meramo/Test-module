@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function igor_schema() {
+  $schema['igor_textfield'] = array(
+    'description' => 'Stores the textfield.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The {nodes}.nid of the node.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ),
+      'textfield' => array(
+        'description' => 'The textfield.',
+        'type' => 'varchar',
+        'length' => '64',
+        'not null' => FALSE,
+      ),
+    ),
+  );
+  return $schema;
+}

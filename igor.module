@@ -2,14 +2,17 @@
 
 // Implements hook_form_BASE_FORM_ID_alter
 function igor_form_node_form_alter(&$form, &$form_state, $form_id) {
-
-  // Add a checkbox to the node form about agreeing to terms of use.
-  $form['sample_textfield'] = array(
-    '#type' => 'textfield',
-    '#title' => t("Sample textfield."),
-    '#required' => FALSE,
-    '#weight' => -3,
-  );
+  if (!empty($form['#node_edit_form'])) {
+    // Add a textfield to all node form.
+    $form['sample_textfield'] = array(
+      '#type' => 'textfield',
+      '#title' => t("Sample textfield"),
+      '#required' => FALSE,
+      '#weight' => -3,
+      '#size' => '32',
+      '#maxlength' => '64',
+    );
+  }
 
   krumo($form);
 }
