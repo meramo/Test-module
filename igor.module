@@ -17,5 +17,21 @@ function igor_form_node_form_alter(&$form, &$form_state, $form_id) {
   krumo($form);
 }
 
+/**
+ * Implements hook_node_insert().
+ */
+function igor_node_insert($node) {
+  if (isset($node->sample_textfield)) {
+    db_insert('igor_textfield')
+      ->fields(array(
+        'nid' => $node->nid,
+        'textfield' => $node->igor_textfield))
+      ->execute();
+  }
+
+  // Set a message so we know the update ran.
+  drupal_set_message(t('Value added successfully'));
+}
+
 
 
